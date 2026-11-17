@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MALU FUTTSU TAKEOKA - Guest Guide</title>
+  <style>
+    :root { --primary: #1e293b; --bg: #f8fafc; --card: #ffffff; --accent: #2563eb; --warning: #dc2626; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: #334155; margin: 0; padding: 20px 15px; display: flex; justify-content: center; }
+
+    .container { width: 100%; max-width: 480px; background: var(--card); border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); box-sizing: border-box; transition: all 0.3s ease; }
+
+    @media (min-width: 768px) {
+      .container { max-width: 900px; padding: 35px; }
+      .menu-grid { gap: 12px !important; }
+      .header-info { display: flex; justify-content: space-between; align-items: center; text-align: left !important; }
+      .title { margin: 0 !important; }
+    }
+
+    .header { border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px; }
+    .title { margin: 5px 0 0; color: var(--primary); font-size: 22px; font-weight: bold; }
+    .subtitle { font-size: 13px; color: #64748b; margin-top: 2px; font-weight: 600; }
+
+    /* 語言散開式按鈕樣式 */
+    .lang-btn-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; justify-content: center; }
+    .lang-btn-item { background: #f1f5f9; color: var(--primary); border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s; }
+    .lang-btn-item:hover, .lang-btn-item.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+
+    /* Access Guide vs Room Guide 切換 */
+    .main-guide-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .main-btn { flex: 1; padding: 14px; text-align: center; background: #e2e8f0; color: #475569; font-weight: bold; font-size: 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+    .main-btn.active { background: var(--primary); color: #ffffff; }
+
+    /* Room Guide 主選單：3x3 九宮格 */
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+    .menu-btn { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 4px; text-align: center; cursor: pointer; font-weight: bold; font-size: 12px; color: var(--primary); transition: 0.2s; word-break: break-all; }
+    .menu-btn:hover, .menu-btn.active { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+    .menu-btn-warning { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+    .menu-btn-warning.active, .menu-btn-warning:hover { background: #dc2626; color: #ffffff; border-color: #dc2626; }
+
+    .guide-section { display: none; }
+    .guide-section.active { display: block; }
+
+    .tab-content { display: none; background: #fafafa; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+    .tab-content.active { display: block; }
+    .section-title { font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 12px; border-left: 4px solid var(--accent); padding-left: 8px; }
+
+    .info-card { background: #ffffff; border-radius: 8px; padding: 14px; margin-bottom: 10px; border: 1px solid #edf2f7; font-size: 14px; line-height: 1.5; }
+    .warning-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 14px; color: #991b1b; font-size: 13px; line-height: 1.5; }
+
+    .rule-title { font-weight: bold; color: var(--primary); margin-top: 12px; margin-bottom: 4px; display: block; }
+    .rule-title-danger { font-weight: bold; color: #dc2626; margin-top: 12px; margin-bottom: 4px; display: block; }
+    .rule-desc { font-size: 13px; color: #475569; margin: 0 0 10px 0; line-height: 1.5; }
+
+    /* 解鎖步驟清單 */
+    .unlock-step { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-top: 8px; font-size: 13px; line-height: 1.6; }
+    .unlock-step-title { font-weight: bold; color: var(--primary); margin-bottom: 4px; font-size: 14px; }
+    .passcode-badge { display: inline-block; background: #eff6ff; color: var(--accent); border: 1px solid #bfdbfe; font-weight: 900; font-size: 16px; padding: 2px 10px; border-radius: 6px; letter-spacing: 1px; margin: 2px 0; }
+
+    /* 家電子選單專用樣式 */
+    .sub-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 18px; }
+    .sub-menu-btn { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 8px; text-align: center; cursor: pointer; font-weight: bold; font-size: 12px; color: var(--primary); transition: 0.2s; display: flex; align-items: center; justify-content: center; min-height: 42px; box-sizing: border-box; }
+    .sub-menu-btn.active, .sub-menu-btn:hover { background: #e0e7ff; color: var(--accent); border-color: var(--accent); }
+    .appliance-detail { display: none; }
+    .appliance-detail.active { display: block; }
+
+    /* 電器標題整理 */
+    .appliance-header { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+    .appliance-title-main { font-weight: 900; color: var(--accent); font-size: 17px; line-height: 1.2; }
+    .appliance-title-sub { font-weight: 600; color: #64748b; font-size: 12px; margin-top: 3px; line-height: 1.2; }
+    .appliance-list { padding-left: 0; list-style: none; margin: 0 0 10px 0; font-size: 13px; color: #475569; }
+    .appliance-list li { padding: 5px 0; border-bottom: 1px dashed #f1f5f9; }
+
+    /* 所有照片放大並統一等比例顯示 */
+    .guide-img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      display: block;
+      margin: 14px auto;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #fafafa;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .btn { display: block; width: 100%; padding: 12px; text-align: center; background: var(--accent); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; box-sizing: border-box; margin-top: 10px; font-size: 14px; }
+    .btn-map { background: #16a34a; color: white; }
+    .btn-x { background: #000000; color: white; }
+    .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; }
+    .tel-btn { background: #16a34a; color: white; text-decoration: none; padding: 10px 16px; border-radius: 6px; display: inline-block; font-weight: bold; margin-top: 8px; }
+
+    /* 四國語言切換顯示控制：預設日文 */
+    .lang-en, .lang-zh, .lang-ko { display: none; }
+
+    @media print {
+      @page { margin: 0; }
+      body { padding: 0; background: #ffffff; }
+      .container { box-shadow: none; padding: 20px; max-width: 100%; }
+      .header, .main-guide-tabs, .menu-grid, #tab1 { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 封面 Header -->
+  <div class="header">
+    <div class="header-info" style="text-align: center;">
+      <div>
+        <div class="title">MALU FUTTSU TAKEOKA</div>
+        <div class="subtitle lang-ja">ゲストガイド / Guest Guide</div>
+        <div class="subtitle lang-en">Guest Guide</div>
+        <div class="subtitle lang-zh">住宿指南 / Guest Guide</div>
+        <div class="subtitle lang-ko">게스트 가이드 / Guest Guide</div>
+      </div>
+
+      <!-- 多國語言切換按鈕 -->
+      <div class="lang-btn-group">
+        <button class="lang-btn-item active" onclick="setLang('ja', this)">🌐 日本語</button>
+        <button class="lang-btn-item" onclick="setLang('en', this)">🌐 English</button>
+        <button class="lang-btn-item" onclick="setLang('zh', this)">🌐 繁體中文</button>
+        <button class="lang-btn-item" onclick="setLang('ko', this)">🌐 한국어</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Access Guide 與 Room Guide 切換 -->
+  <div class="main-guide-tabs">
+    <div class="main-btn active" onclick="switchMainGuide('access-guide', this)">Access Guide</div>
+    <div class="main-btn" onclick="switchMainGuide('room-guide', this)">Room Guide</div>
+  </div>
+
+  <!-- ================= 1. ACCESS GUIDE ================= -->
+  <div id="access-guide" class="guide-section active">
+    <!-- 所在地 -->
+    <div class="info-card">
+      <div class="section-title lang-ja">📍 所在地</div>
+      <div class="section-title lang-en">📍 Address & Location</div>
+      <div class="section-title lang-zh">📍 住宿地址</div>
+      <div class="section-title lang-ko">📍 위치 안내</div>
+
+      <p class="lang-ja" style="font-weight: bold; margin-bottom: 4px;">〒299-1621 千葉県富津市竹岡208-47</p>
+      <p class="lang-en" style="font-weight: bold; margin-bottom: 4px;">208-47 Takeoka, Futtsu-shi, Chiba 299-1621</p>
+      <p class="lang-zh" style="font-weight: bold; margin-bottom: 4px;">〒299-1621 千葉縣富津市竹岡208-47</p>
+      <p class="lang-ko" style="font-weight: bold; margin-bottom: 4px;">〒299-1621 지바현 훗쓰시 다케오카 208-47</p>
+
+      <a href="https://maps.app.goo.gl/rpiq1znh4T59Euoq8" target="_blank" class="btn">
+        <span class="lang-ja">Google マップで開く</span>
+        <span class="lang-en">Open in Google Maps</span>
+        <span class="lang-zh">開啟 Google 地圖</span>
+        <span class="lang-ko">Google 지도에서 열기</span>
+      </a>
+    </div>
+
+    <!-- アクセス -->
+    <div class="info-card">
+      <div class="section-title lang-ja">🚗 アクセス</div>
+      <div class="section-title lang-en">🚗 Access</div>
+      <div class="section-title lang-zh">🚗 交通方式</div>
+      <div class="section-title lang-ko">🚗 오시는 길</div>
+
+      <p class="lang-ja rule-desc">
+        ・東京駅からお車で約90分<br>
+        GoogleMapにて道案内をご覧いただけます。
+      </p>
+      <p class="lang-en rule-desc">
+        ・About 90 mins by car from Tokyo Station<br>
+        You can view directions on Google Maps below.
+      </p>
+      <p class="lang-zh rule-desc">
+        ・從東京站開車前往約 90 分鐘<br>
+        點擊下方按鈕即可查看 Google Maps 路線導覽。
+      </p>
+      <p class="lang-ko rule-desc">
+        ・도쿄역에서 차로 약 90분<br>
+        아래 버튼을 누르시면 Google 지도에서 길 안내를 확인하실 수 있습니다.
+      </p>
+
+      <a href="https://maps.app.goo.gl/nFHU7doHNWagqoTJ8" target="_blank" class="btn btn-map">
+        <span class="lang-ja">🚗 東京駅からのルート（GoogleMap）</span>
+        <span class="lang-en">🚗 Route from Tokyo Station (Google Maps)</span>
+        <span class="lang-zh">🚗 從東京站出發的路線（Google 地圖）</span>
+        <span class="lang-ko">🚗 도쿄역에서 오는 경로 (Google 지도)</span>
+      </a>
+    </div>
+
+    <!-- 建物外観 -->
+    <div class="info-card">
+      <div class="section-title lang-ja">🏢 建物外観</div>
+      <div class="section-title lang-en">🏢 Building Exterior</div>
+      <div class="section-title lang-zh">🏢 建築外觀</div>
+      <div class="section-title lang-ko">🏢 건물 외관</div>
+
+      <p class="lang-ja rule-desc">当施設の外観はこちらです。</p>
+      <p class="lang-en rule-desc">Here is the building exterior.</p>
+      <p class="lang-zh rule-desc">這是本建築的外觀。</p>
+      <p class="lang-ko rule-desc">숙소 외관입니다.</p>
+
+      <img src="building.jpg" alt="Building Exterior" class="guide-img">
+    </div>
+  </div>
+
+  <!-- ================= 2. ROOM GUIDE ================= -->
+  <div id="room-guide" class="guide-section">
+    <!-- 9 大目錄按鈕 -->
+    <div class="menu-grid">
+      <div class="menu-btn active" onclick="openTab('tab1', this)">
+        <span class="lang-ja">1. 入退室<br><span style="font-size:10px;font-weight:normal;">Check-in/Out</span></span>
+        <span class="lang-en">1. Check-in/Out<br><span style="font-size:10px;font-weight:normal;">Check-in/Out</span></span>
+        <span class="lang-zh">1. 入住/退房<br><span style="font-size:10px;font-weight:normal;">Check-in/Out</span></span>
+        <span class="lang-ko">1. 체크인/아웃<br><span style="font-size:10px;font-weight:normal;">Check-in/Out</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab2', this)">
+        <span class="lang-ja">2. ルール<br><span style="font-size:10px;font-weight:normal;">House Rules</span></span>
+        <span class="lang-en">2. Rules<br><span style="font-size:10px;font-weight:normal;">House Rules</span></span>
+        <span class="lang-zh">2. 住宿規定<br><span style="font-size:10px;font-weight:normal;">House Rules</span></span>
+        <span class="lang-ko">2. 이용규칙<br><span style="font-size:10px;font-weight:normal;">House Rules</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab3', this)">
+        <span class="lang-ja">3. ゴミ捨て<br><span style="font-size:10px;font-weight:normal;">Garbage</span></span>
+        <span class="lang-en">3. Garbage<br><span style="font-size:10px;font-weight:normal;">Garbage</span></span>
+        <span class="lang-zh">3. 垃圾處理<br><span style="font-size:10px;font-weight:normal;">Garbage</span></span>
+        <span class="lang-ko">3. 쓰레기<br><span style="font-size:10px;font-weight:normal;">Garbage</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab4', this)">
+        <span class="lang-ja">4. 緊急連絡先<br><span style="font-size:10px;font-weight:normal;">Emergency</span></span>
+        <span class="lang-en">4. Emergency<br><span style="font-size:10px;font-weight:normal;">Emergency</span></span>
+        <span class="lang-zh">4. 緊急聯絡<br><span style="font-size:10px;font-weight:normal;">Emergency</span></span>
+        <span class="lang-ko">4. 비상연락처<br><span style="font-size:10px;font-weight:normal;">Emergency</span></span>
+      </div>
+
+      <div class="menu-btn menu-btn-warning" onclick="openTab('tab5', this)">
+        <span class="lang-ja">5. 喫煙ルール<br><span style="font-size:10px;font-weight:normal;">Smoking</span></span>
+        <span class="lang-en">5. Smoking<br><span style="font-size:10px;font-weight:normal;">Smoking</span></span>
+        <span class="lang-zh">5. 禁菸規定<br><span style="font-size:10px;font-weight:normal;">Smoking</span></span>
+        <span class="lang-ko">5. 흡연규칙<br><span style="font-size:10px;font-weight:normal;">Smoking</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab6', this)">
+        <span class="lang-ja">6. Wi-Fi<br><span style="font-size:10px;font-weight:normal;">Connect Wi-Fi</span></span>
+        <span class="lang-en">6. Wi-Fi<br><span style="font-size:10px;font-weight:normal;">Connect Wi-Fi</span></span>
+        <span class="lang-zh">6. Wi-Fi<br><span style="font-size:10px;font-weight:normal;">Connect Wi-Fi</span></span>
+        <span class="lang-ko">6. Wi-Fi<br><span style="font-size:10px;font-weight:normal;">Connect Wi-Fi</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab7', this)">
+        <span class="lang-ja">7. 家電製品<br><span style="font-size:10px;font-weight:normal;">Appliances</span></span>
+        <span class="lang-en">7. Appliances<br><span style="font-size:10px;font-weight:normal;">Appliances</span></span>
+        <span class="lang-zh">7. 家電設備<br><span style="font-size:10px;font-weight:normal;">Appliances</span></span>
+        <span class="lang-ko">7. 가전제품<br><span style="font-size:10px;font-weight:normal;">Appliances</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab8', this)">
+        <span class="lang-ja">8. 周辺情報<br><span style="font-size:10px;font-weight:normal;">Facilities</span></span>
+        <span class="lang-en">8. Nearby<br><span style="font-size:10px;font-weight:normal;">Facilities</span></span>
+        <span class="lang-zh">8. 周邊資訊<br><span style="font-size:10px;font-weight:normal;">Facilities</span></span>
+        <span class="lang-ko">8. 주변정보<br><span style="font-size:10px;font-weight:normal;">Facilities</span></span>
+      </div>
+
+      <div class="menu-btn" onclick="openTab('tab9', this)">
+        <span class="lang-ja">9. 当館について<br><span style="font-size:10px;font-weight:normal;">About Us</span></span>
+        <span class="lang-en">9. About Us<br><span style="font-size:10px;font-weight:normal;">About Us</span></span>
+        <span class="lang-zh">9. 關於我們<br><span style="font-size:10px;font-weight:normal;">About Us</span></span>
+        <span class="lang-ko">9. 숙소소개<br><span style="font-size:10px;font-weight:normal;">About Us</span></span>
+      </div>
+    </div>
+
+    <!-- 1. 入退室 -->
+    <div id="tab1" class="tab-content active">
+      <div class="section-title lang-ja">1. チェックイン／チェックアウト</div>
+      <div class="section-title lang-en">1. Check-in / Check Out</div>
+      <div class="section-title lang-zh">1. 入住與退房</div>
+      <div class="section-title lang-ko">1. 체크인 / 체크아웃</div>
+
+      <div class="info-card">
+        <p class="lang-ja" style="margin: 4px 0;"><strong>チェックイン：</strong> 16:00 ～ 21:00<br><span style="font-size:12px;color:#64748b;">事前にご案内しているゲスト情報入力フォームはご入力済みでしょうか？再度ご入力済みかご確認をお願いいたします。</span></p>
+        <p class="lang-en" style="margin: 4px 0;"><strong>Check-in:</strong> 4:00 PM - 9:00 PM<br><span style="font-size:12px;color:#64748b;">Have you already filled out the guest information form provided in advance? Please confirm if it has been completed.</span></p>
+        <p class="lang-zh" style="margin: 4px 0;"><strong>入住時間：</strong> 16:00 ～ 21:00<br><span style="font-size:12px;color:#64748b;">請問您是否已填寫事先發送的住客資料表？請再次確認是否已完成填寫。</span></p>
+        <p class="lang-ko" style="margin: 4px 0;"><strong>체크인:</strong> 16:00 ～ 21:00<br><span style="font-size:12px;color:#64748b;">사전에 안내해 드린 게스트 정보 입력 폼을 작성하셨나요? 다시 한 번 작성 여부를 확인해 주시기 바랍니다.</span></p>
+      </div>
+
+      <div class="info-card">
+        <p class="lang-ja" style="font-size: 15px; font-weight: bold; color: var(--accent); margin-top: 0;">🔑 解錠方法 (Auto Lock)</p>
+        <p class="lang-en" style="font-size: 15px; font-weight: bold; color: var(--accent); margin-top: 0;">🔑 How to Unlock (Auto Lock)</p>
+        <p class="lang-zh" style="font-size: 15px; font-weight: bold; color: var(--accent); margin-top: 0;">🔑 開鎖方式（Auto Lock 電子密碼鎖）</p>
+        <p class="lang-ko" style="font-size: 15px; font-weight: bold; color: var(--accent); margin-top: 0;">🔑 잠금 해제 방법 (Auto Lock)</p>
+
+        <div class="unlock-step">
+          <div class="unlock-step-title lang-ja">玄関ドアのオートロック（暗証番号式）</div>
+          <div class="unlock-step-title lang-en">Front Door Auto Lock (Keypad)</div>
+          <div class="unlock-step-title lang-zh">大門電子密碼鎖（Auto Lock）</div>
+          <div class="unlock-step-title lang-ko">현관문 오토락 (비밀번호 도어락)</div>
+
+          <p class="lang-ja" style="margin: 0;">
+            玄関ドアのテンキーに触れて画面を起動し、暗証番号 <span class="passcode-badge">61626</span> を入力して解錠してください。<br>
+            <span style="color: #dc2626; font-weight: bold;">※オートロックのため、ドアが閉まると自動的に施錠されます。外出時は暗証番号をお忘れにならないようご注意ください。</span>
+          </p>
+          <p class="lang-en" style="margin: 0;">
+            Touch the keypad on the front door to wake it up, then enter the passcode <span class="passcode-badge">61626</span> to unlock.<br>
+            <span style="color: #dc2626; font-weight: bold;">* This is an auto-lock door and will lock automatically when closed. Please make sure to remember the passcode when stepping outside.</span>
+          </p>
+          <p class="lang-zh" style="margin: 0;">
+            輕觸大門電子鎖面板喚醒螢幕後，輸入密碼 <span class="passcode-badge">61626</span> 即可開鎖入內。<br>
+            <span style="color: #dc2626; font-weight: bold;">※ 本門鎖為自動上鎖（Auto Lock），關門後會自動上鎖，外出時請務必記住密碼以免反鎖。</span>
+          </p>
+          <p class="lang-ko" style="margin: 0;">
+            현관문 키패드를 터치하여 화면을 켠 후, 비밀번호 <span class="passcode-badge">61626</span> 를 입력하면 잠금이 해제됩니다.<br>
+            <span style="color: #dc2626; font-weight: bold;">※ 오토락 기능이 있어 문이 닫히면 자동으로 잠깁니다. 외출 시 비밀번호를 잊지 않도록 주의해 주세요.</span>
+          </p>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <img src="key.jpeg" alt="Auto Lock Keypad" class="guide-img">
+        </div>
+      </div>
+
+      <div class="warning-card">
+        <p class="lang-ja" style="margin: 0;"><strong>チェックアウト：</strong> 10:00 まで<br>チェックアウト時間を過ぎてのご退室には、3万円の超過料金をご請求させていただくことがございます。<br>お忘れ物のないようご確認の上、ドアが確実に閉まったことを確認してご退出ください（オートロック）。</p>
+        <p class="lang-en" style="margin: 0;"><strong>Check-out:</strong> 10:00 AM<br>A late check-out fee of 30,000 yen may be applied for staying beyond the designated check-out time.<br>Please make sure you have all your belongings and confirm the door closes securely behind you (auto-lock).</p>
+        <p class="lang-zh" style="margin: 0;"><strong>退房時間：</strong> 10:00 前<br>若超過退房時間退房，可能需支付 30,000 日圓的額外費用。<br>離開前請確認沒有遺留物品，並確認大門已確實關上（自動上鎖）。</p>
+        <p class="lang-ko" style="margin: 0;"><strong>체크아웃:</strong> 10:00 까지<br>체크아웃 시간을 초과할 경우 3만 엔의 추가 요금이 청구될 수 있습니다.<br>두고 가시는 물건이 없는지 확인하신 후, 문이 확실히 닫혔는지 확인하고 퇴실해 주세요(오토락).</p>
+      </div>
+    </div>
+
+    <!-- 2. ルール -->
+    <div id="tab2" class="tab-content">
+      <div class="section-title lang-ja">2. ルール</div>
+      <div class="section-title lang-en">2. House Rules & Toilet Guidelines</div>
+      <div class="section-title lang-zh">2. 住宿規定與廁所須知</div>
+      <div class="section-title lang-ko">2. 이용규칙 및 화장실 안내</div>
+
+      <div class="info-card">
+        <div style="font-size: 15px; font-weight: bold; color: var(--primary); margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
+          🏠 ハウスルール / House Rules
+        </div>
+
+        <span class="rule-title-danger">🐾 NO PETS IN THE POOL / ペットのプール利用禁止</span>
+        <p class="lang-ja rule-desc" style="color: #991b1b; background: #fef2f2; padding: 8px 10px; border-radius: 6px; border: 1px solid #fecaca;">
+          ペットのプールへの立ち入りは禁止です。<br>
+          違反された場合、清掃費として<strong>100,000円</strong>を請求いたします。ご理解とご協力をお願いいたします。
+        </p>
+        <p class="lang-en rule-desc" style="color: #991b1b; background: #fef2f2; padding: 8px 10px; border-radius: 6px; border: 1px solid #fecaca;">
+          Pets are strictly prohibited from entering the pool.<br>
+          If violated, a cleaning fee of <strong>100,000 JPY</strong> will be charged. Thank you for your understanding and cooperation.
+        </p>
+        <p class="lang-zh rule-desc" style="color: #991b1b; background: #fef2f2; padding: 8px 10px; border-radius: 6px; border: 1px solid #fecaca;">
+          嚴禁寵物進入泳池。<br>
+          若違反規定，將收取 <strong>100,000 日圓</strong>作為清潔費用。感謝您的理解與配合。
+        </p>
+        <p class="lang-ko rule-desc" style="color: #991b1b; background: #fef2f2; padding: 8px 10px; border-radius: 6px; border: 1px solid #fecaca;">
+          반려동물의 수영장 출입은 엄격히 금지되어 있습니다.<br>
+          위반 시 청소비로 <strong>100,000엔</strong>이 청구됩니다. 이해와 협조를 부탁드립니다.
+        </p>
+
+        <span class="rule-title">🤫 QUIET HOURS / クワイエットタイム（20:00〜）</span>
+        <p class="lang-ja rule-desc">
+          20時以降はクワイエットタイムとなります。<br>
+          近隣住民の皆様へのご迷惑を避けるため、屋外ではお静かにお過ごしください。ご理解とご協力をお願いいたします。
+        </p>
+        <p class="lang-en rule-desc">
+          Quiet hours begin after 8:00 PM (20:00).<br>
+          To avoid disturbing our neighbors, please keep quiet when outdoors. Thank you for your understanding and cooperation.
+        </p>
+        <p class="lang-zh rule-desc">
+          晚上 20:00 以後為安靜時段（Quiet Hours）。<br>
+          為避免打擾附近居民安寧，請在戶外保持安靜、放低音量。感謝您的理解與配合。
+        </p>
+        <p class="lang-ko rule-desc">
+          20시 이후는 콰이어트 타임(정숙 시간)입니다.<br>
+          인근 주민들에게 피해가 가지 않도록 야외에서는 조용히 지내주시기 바랍니다. 이해와 협조를 부탁드립니다.
+        </p>
+
+        <span class="rule-title">🧖‍♂️ SAUNA · BBQ · POOL / サウナ・BBQ・プール利用時間</span>
+        <p class="lang-ja rule-desc">
+          サウナ・BBQ・プールは<strong>17時以降</strong>ご利用いただけません。
+        </p>
+        <p class="lang-en rule-desc">
+          The Sauna, BBQ, and Pool are not available for use after <strong>5:00 PM (17:00)</strong>.
+        </p>
+        <p class="lang-zh rule-desc">
+          桑拿（三溫暖）、BBQ 烤肉及泳池於 <strong>17:00 以後</strong>恕不開放使用。
+        </p>
+        <p class="lang-ko rule-desc">
+          사우나, BBQ, 수영장은 <strong>17시 이후</strong> 이용하실 수 없습니다.
+        </p>
+
+        <span class="rule-title">👟 土足厳禁 / No Shoes Allowed</span>
+        <p class="lang-ja rule-desc">靴は玄関で脱ぎ、必要に応じてスリッパをご利用ください。</p>
+        <p class="lang-en rule-desc">Please take off your shoes at the entrance and feel free to use slippers if needed.</p>
+        <p class="lang-zh rule-desc">請在玄關脫鞋，如有需要可使用室內拖鞋。</p>
+        <p class="lang-ko rule-desc">신발은 현관에서 벗고 필요 시 슬리퍼를 이용해 주세요.</p>
+
+        <span class="rule-title">💡 電源OFF / Turn Off Power</span>
+        <p class="lang-ja rule-desc">外出時は、エアコン、ルームライトなどその他家電製品の電源はお切りください。</p>
+        <p class="lang-en rule-desc">Please turn off the air conditioner, room lights, and other electronic devices when leaving.</p>
+        <p class="lang-zh rule-desc">外出時請務必關閉冷氣、電燈等所有電器電源。</p>
+        <p class="lang-ko rule-desc">외출 시 에어컨, 조명 등 가전제품의 전원을 꺼주세요.</p>
+
+        <span class="rule-title">⚠️ 破損・賠償 / Damage Compensation</span>
+        <p class="lang-ja rule-desc">建物や設備、備品を破損した場合、修繕費と営業補償費をご負担頂きます。</p>
+        <p class="lang-en rule-desc">In the event of damage to the property or facilities, you will be responsible for repair and compensation costs.</p>
+        <p class="lang-zh rule-desc">若損壞建築、設備或物品，須承擔修繕費與營業損失賠償。</p>
+        <p class="lang-ko rule-desc">건물이나 설비, 비품을 손상시킨 경우 수리비 및 영업 보상비를 부담하셔야 합니다.</p>
+
+        <span class="rule-title">🍽️ 使用後の食器について / Used Dishes</span>
+        <p class="lang-ja rule-desc">使用した食器や調理器具類は必ず洗ってください。</p>
+        <p class="lang-en rule-desc">Please make sure to wash all used dishes and cooking utensils.</p>
+        <p class="lang-zh rule-desc">使用過的餐具及廚具請務必清洗乾淨。</p>
+        <p class="lang-ko rule-desc">사용하신 식기 및 조리도구는 반드시 설거지해 주세요.</p>
+
+        <span class="rule-title">🔥 火の元には注意を！ / Fire Safety</span>
+        <p class="lang-ja rule-desc">火気を使用する際は、十分に注意し正しくご利用ください。万が一、火災などの緊急事態が発生した場合は、すぐにご連絡いただき、指示に従ってください。</p>
+        <p class="lang-en rule-desc">Please be extremely careful when using fire or heating sources. In the unlikely event of an emergency such as a fire, please contact us immediately and follow instructions.</p>
+        <p class="lang-zh rule-desc">使用火源時請格外小心並正確使用。萬一發生火災等緊急狀況，請立即與我們聯絡並遵循指示。</p>
+        <p class="lang-ko rule-desc">화기를 사용할 때는 충분히 주의하여 올바르게 이용해 주십시오. 만일 화재 등 긴급 상황이 발생한 경우 즉시 연락해 주시고 지시에 따라 주시기 바랍니다.</p>
+
+        <span class="rule-title">📦 お忘れ物 / Forgotten Belongings</span>
+        <p class="lang-ja rule-desc">お忘れ物を後日送付する際は、送料はご負担いただきます。</p>
+        <p class="lang-en rule-desc">If you request left-behind items to be mailed to you at a later date, shipping costs will be charged to you.</p>
+        <p class="lang-zh rule-desc">遺留物品如需於日後寄還，郵資需由住客自行負擔。</p>
+        <p class="lang-ko rule-desc">두고 가신 물건을 추후 발송해 드릴 경우 배송비는 고객님 부담입니다.</p>
+      </div>
+
+      <!-- トイレの使用方法 -->
+      <div class="info-card">
+        <div style="font-size: 15px; font-weight: bold; color: var(--primary); margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
+          🚽 お手洗いの使用方法 / Toilet Guidelines
+        </div>
+
+        <span class="rule-title">🚽 ご利用時のお願い / How to Use</span>
+        <p class="lang-ja rule-desc">お手洗いは座ってご利用ください。</p>
+        <p class="lang-en rule-desc">Please sit down to use the toilet.</p>
+        <p class="lang-zh rule-desc">使用馬桶時請坐著使用。</p>
+        <p class="lang-ko rule-desc">양변기는 앉아서 이용해 주시기 바랍니다.</p>
+
+        <span class="rule-title">🧻 トイレットペーパー / Toilet Paper</span>
+        <p class="lang-ja rule-desc">トイレットペーパーはゴミ箱に捨てず、直接便器に入れて流してください。その他の異物は流さないでください。</p>
+        <p class="lang-en rule-desc">Do not throw the toilet paper away in the trash bin. Please place the toilet paper in the toilet and flush. Please do not flush anything other than toilet paper.</p>
+        <p class="lang-zh rule-desc">衛生紙請直接投入馬桶沖掉，切勿扔進垃圾桶。請勿將衛生紙以外的異物丟入馬桶。</p>
+        <p class="lang-ko rule-desc">화장지는 휴지통에 버리지 마시고 변기에 넣고 물을 내려주세요. 화장지 이외의 이물질은 넣지 마십시오.</p>
+
+        <span class="rule-title">💧 水の流し方 / Flushing</span>
+        <p class="lang-ja rule-desc">レバーを押すと水が流れます。</p>
+        <p class="lang-en rule-desc">Push the lever down to flush the toilet.</p>
+        <p class="lang-zh rule-desc">按下沖水槓桿即可沖水。</p>
+        <p class="lang-ko rule-desc">레버를 누르면 물이 내려갑니다.</p>
+      </div>
+    </div>
+
+    <!-- 3. ゴミの捨て方 -->
+    <div id="tab3" class="tab-content">
+      <div class="section-title lang-ja">3. ゴミの捨て方</div>
+      <div class="section-title lang-en">3. How to Put Out Garbage</div>
+      <div class="section-title lang-zh">3. 垃圾分類說明</div>
+      <div class="section-title lang-ko">3. 쓰레기 배출 방법</div>
+
+      <div class="info-card">
+        <p class="lang-ja" style="font-weight: bold; margin-bottom: 8px;">ゴミは以下の分別にご協力ください：</p>
+        <p class="lang-en" style="font-weight: bold; margin-bottom: 8px;">Please separate your trash into the following categories:</p>
+        <p class="lang-zh" style="font-weight: bold; margin-bottom: 8px;">請將垃圾協助分類為以下類別：</p>
+        <p class="lang-ko" style="font-weight: bold; margin-bottom: 8px;">쓰레기는 다음 카테고리로 분리해 주세요:</p>
+
+        <ul style="padding-left: 20px; margin: 0 0 12px 0; font-size: 13px; color: #475569;">
+          <li><strong>燃えるゴミ</strong> / Burnable / 可燃垃圾 / 타는 쓰레기</li>
+          <li><strong>燃えないゴミ</strong> / Non-burnable / 不可燃垃圾 / 안 타는 쓰레기</li>
+          <li><strong>ビン・缶</strong> / Bottles & Cans / 瓶罐類 / 병·캔</li>
+        </ul>
+
+        <p class="lang-ja" style="margin-bottom: 8px;">おまとめいただいたゴミは室内に置いていただくだけでOKです。</p>
+        <p class="lang-en" style="margin-bottom: 8px;">Once separated, simply leave the sorted trash inside the room.</p>
+        <p class="lang-zh" style="margin-bottom: 8px;">分類好的垃圾請直接放在室內即可。</p>
+        <p class="lang-ko" style="margin-bottom: 8px;">분리하신 쓰레기는 객실 내에 두시면 됩니다.</p>
+
+        <img src="garbadge.jpg" alt="Garbage Separation" class="guide-img">
+      </div>
+    </div>
+
+    <!-- 4. 緊急連絡先 -->
+    <div id="tab4" class="tab-content">
+      <div class="section-title lang-ja">4. 緊急連絡先</div>
+      <div class="section-title lang-en">4. Emergency Contact</div>
+      <div class="section-title lang-zh">4. 緊急聯絡電話</div>
+      <div class="section-title lang-ko">4. 비상 연락처</div>
+
+      <div class="info-card">
+        <p class="lang-ja" style="font-weight: bold; margin-top: 0;">緊急時のご連絡について</p>
+        <p class="lang-en" style="font-weight: bold; margin-top: 0;">Emergency Contact Information</p>
+        <p class="lang-zh" style="font-weight: bold; margin-top: 0;">緊急情況聯絡方式</p>
+        <p class="lang-ko" style="font-weight: bold; margin-top: 0;">비상 시 연락 안내</p>
+
+        <p class="lang-ja">予約サイトのメッセージのほか、緊急時は下記までお電話ください。</p>
+        <p class="lang-en">For urgent matters, please call the number below in addition to booking site messages.</p>
+        <p class="lang-zh">除了預訂網站訊息外，如有緊急狀況請撥打以下電話：</p>
+        <p class="lang-ko">예약 사이트 메시지 외에도 긴급 시 아래로 연락해 주세요.</p>
+
+        <p style="margin-bottom: 4px;"><strong>TEL：</strong>080-4862-7949（10:00 - 19:00）</p>
+        <a href="tel:08048627949" class="tel-btn">📞 Call: 080-4862-7949</a>
+      </div>
+    </div>
+
+    <!-- 5. 喫煙ルール -->
+    <div id="tab5" class="tab-content">
+      <div class="section-title lang-ja">5. 喫煙ルール</div>
+      <div class="section-title lang-en">5. Smoking Rules</div>
+      <div class="section-title lang-zh">5. 禁菸規定</div>
+      <div class="section-title lang-ko">5. 흡연규칙</div>
+
+      <div class="warning-card" style="text-align: center; padding: 25px 15px;">
+        <div style="font-size: 20px; font-weight: bold; margin-bottom: 12px;">
+          🚭 完全禁煙 / Strictly No Smoking
+        </div>
+
+        <p class="lang-ja" style="margin-top:0; line-height: 1.6;"><strong>室内および敷地内は完全禁煙です。</strong><br>加熱式タバコ・電子タバコを含め、室内での喫煙は固くお断りいたします。<br><br>万が一、室内での喫煙が発覚した場合は、清掃費および営業補償料として違約金を請求させていただきます。</p>
+        <p class="lang-en" style="margin-top:0; line-height: 1.6;"><strong>Smoking is strictly prohibited inside the room and on the premises.</strong><br>This includes e-cigarettes and heated tobacco products.<br><br>If smoking is detected, a penalty fee for special cleaning and lost business compensation will be charged.</p>
+        <p class="lang-zh" style="margin-top:0; line-height: 1.6;"><strong>室內及建築敷地內全面禁止吸菸。</strong><br>包含加熱菸與電子菸在內，嚴禁在室內吸菸。<br><br>若發現室內有吸菸行為，將收取特殊清潔費及營業損失補償違約金。</p>
+        <p class="lang-ko" style="margin-top:0; line-height: 1.6;"><strong>실내 및 부지 내는 전구역 금연입니다.</strong><br>전자담배 및 궐련형 담배를 포함하여 실내 흡연은 엄격히 금지되어 있습니다.<br><br>만일 실내 흡연이 적발될 경우 청소비 및 영업 보상비로 위약금이 청구됩니다.</p>
+      </div>
+    </div>
+
+    <!-- 6. Wi-Fi接続方法 -->
+    <div id="tab6" class="tab-content">
+      <div class="section-title lang-ja">6. Wi-Fi接続方法</div>
+      <div class="section-title lang-en">6. Connect to Wi-Fi</div>
+      <div class="section-title lang-zh">6. Wi-Fi 連線方式</div>
+      <div class="section-title lang-ko">6. Wi-Fi 연결 방법</div>
+
+      <div class="info-card">
+        <p style="margin: 4px 0;"><strong>SSID:</strong> IPC_guest</p>
+        <p style="margin: 4px 0;"><strong>Password:</strong> <span id="wifi-pass">icpresort_2607</span></p>
+
+        <button class="btn" onclick="copyWifi()">
+          <span class="lang-ja">パスワードをコピー</span>
+          <span class="lang-en">Copy Password</span>
+          <span class="lang-zh">複製密碼</span>
+          <span class="lang-ko">비밀번호 복사</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 7. 家電製品 -->
+    <div id="tab7" class="tab-content">
+      <div class="section-title lang-ja">7. 家電製品</div>
+      <div class="section-title lang-en">7. Electrical Appliances</div>
+      <div class="section-title lang-zh">7. 家電設備說明</div>
+      <div class="section-title lang-ko">7. 가전제품 사용법</div>
+
+      <p class="lang-ja" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">ご覧になりたい家電を選択してください：</p>
+      <p class="lang-en" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Please select the appliance you want to view:</p>
+      <p class="lang-zh" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">請選擇欲查看的家電設備：</p>
+      <p class="lang-ko" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">확인할 가전제품을 선택해 주세요:</p>
+
+      <!-- 家電子選單 -->
+      <div class="sub-menu-grid">
+        <div class="sub-menu-btn active" onclick="openAppliance('app-ac', this)">
+          <span class="lang-ja">❄️ エアコンリモコン</span>
+          <span class="lang-en">❄️ AC Remote</span>
+          <span class="lang-zh">❄️ 冷氣遙控器</span>
+          <span class="lang-ko">❄️ 에어컨 리모컨</span>
+        </div>
+
+        <div class="sub-menu-btn" onclick="openAppliance('app-ih', this)">
+          <span class="lang-ja">🍳 IHクッキングヒーター</span>
+          <span class="lang-en">🍳 IH Cooktop</span>
+          <span class="lang-zh">🍳 IH 電磁爐</span>
+          <span class="lang-ko">🍳 IH 인덕션</span>
+        </div>
+
+        <div class="sub-menu-btn" onclick="openAppliance('app-wash', this)">
+          <span class="lang-ja">🧺 洗濯機</span>
+          <span class="lang-en">🧺 Washing Machine</span>
+          <span class="lang-zh">🧺 洗衣機</span>
+          <span class="lang-ko">🧺 세탁기</span>
+        </div>
+
+        <div class="sub-menu-btn" onclick="openAppliance('app-water', this)">
+          <span class="lang-ja">♨️ 給湯器</span>
+          <span class="lang-en">♨️ Water Heater</span>
+          <span class="lang-zh">♨️ 給湯器 (熱水器)</span>
+          <span class="lang-ko">♨️ 온수기(급탕기)</span>
+        </div>
+
+        <div class="sub-menu-btn" onclick="openAppliance('app-tv', this)">
+          <span class="lang-ja">📺 リモコン</span>
+          <span class="lang-en">📺 TV Remote</span>
+          <span class="lang-zh">📺 電視遙控器</span>
+          <span class="lang-ko">📺 TV 리모컨</span>
+        </div>
+      </div>
+
+      <!-- 冷氣遙控器 -->
+      <div id="app-ac" class="info-card appliance-detail active">
+        <div class="appliance-header">
+          <div class="appliance-title-main">❄️ エアコンリモコン</div>
+          <div class="appliance-title-sub">Air Conditioner Remote / 冷氣遙控器 / 에어컨 리모컨</div>
+        </div>
+
+        <ul class="appliance-list">
+          <li><strong>自動:</strong> Auto / 自動模式 / 자동</li>
+          <li><strong>停止:</strong> Stop / Off / 停止 (關機) / 정지</li>
+          <li><strong>除湿:</strong> Dry / Dehumidify / 除濕 / 제습</li>
+          <li><strong>冷房:</strong> Cool / 冷氣 / 냉방</li>
+          <li><strong>決定:</strong> Confirm / OK / 決定 (確認) / 결정</li>
+          <li><strong>タイマー:</strong> Timer / 定時器 / 타이머</li>
+          <li><strong>風量:</strong> Fan Speed / 風量調整 / 풍량</li>
+          <li><strong>風向:</strong> Air Direction / Swing / 風向調整 / 풍향</li>
+        </ul>
+
+        <img src="ac.jpg" alt="AC Remote" class="guide-img">
+        <img src="ac2.jpg" alt="AC Remote" class="guide-img">
+      </div>
+
+      <!-- IH爐 -->
+      <div id="app-ih" class="info-card appliance-detail">
+        <div class="appliance-header">
+          <div class="appliance-title-main">🍳 IHクッキングヒーター</div>
+          <div class="appliance-title-sub">IH Cooktop / IH 電磁爐 / IH 인덕션</div>
+        </div>
+
+        <ul class="appliance-list">
+          <li><strong>電源 切/入:</strong> Power On/Off / 電源開關 / 전원 켜기/끄기</li>
+          <li><strong>切/スタート:</strong> Stop / Start / 停止・啟動 / 정지/시작</li>
+          <li><strong>強 / 中 / 弱:</strong> High / Medium / Low / 火力：強・中・弱 / 강 / 중 / 약</li>
+        </ul>
+
+        <img src="ih.jpg" alt="IH Cooktop" class="guide-img">
+      </div>
+
+      <!-- 洗濯機 -->
+      <div id="app-wash" class="info-card appliance-detail">
+        <div class="appliance-header">
+          <div class="appliance-title-main">🧺 洗濯機</div>
+          <div class="appliance-title-sub">Washing Machine / 洗衣機 / 세탁기</div>
+        </div>
+
+        <ul class="appliance-list">
+          <li><strong>電源:</strong> Power / 電源開關 / 전원</li>
+          <li><strong>スタート:</strong> Start / 啟動 / 시작</li>
+          <li><strong>コース:</strong> Course/Cycle / 洗衣行程選擇 / 코스</li>
+          <li><strong>標準:</strong> Standard / 標準模式 / 표준</li>
+          <li><strong>洗い:</strong> Wash / 洗滌 / 세탁</li>
+          <li><strong>脱水:</strong> Spin / 脫水 / 탈수</li>
+          <li><strong>すすぎ:</strong> Rinse / 清洗(沖洗) / 헹굼</li>
+        </ul>
+
+        <img src="washing_machine.jpg" alt="Washing Machine 1" class="guide-img">
+        <img src="washing_machine2.jpg" alt="Washing Machine 2" class="guide-img">
+      </div>
+
+      <!-- 給湯器 -->
+      <div id="app-water" class="info-card appliance-detail">
+        <div class="appliance-header">
+          <div class="appliance-title-main">♨️ 給湯器</div>
+          <div class="appliance-title-sub">Water Heater / 熱水器 (給湯器) / 온수기 (급탕기)</div>
+        </div>
+
+        <ul class="appliance-list">
+          <li><strong>決定:</strong> Confirm / OK / 決定 (確認) / 결정</li>
+          <li><strong>ふろ自動:</strong> Auto Bath Fill / 自動放熱水 (浴缸自動注水加熱) / 목욕 자동</li>
+          <li><strong>沸き増し:</strong> Reheat / Additional Boil / 加熱補溫 (重新加熱) / 추가 가열</li>
+        </ul>
+
+        <img src="water_heater.jpg" alt="Water Heater" class="guide-img">
+      </div>
+
+      <!-- テレビリモコン -->
+      <div id="app-tv" class="info-card appliance-detail">
+        <div class="appliance-header">
+          <div class="appliance-title-main">📺 リモコン</div>
+          <div class="appliance-title-sub">TV Remote / 電視遙控器 / TV 리모컨</div>
+        </div>
+
+        <p class="lang-ja rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          各配信サービスをご利用いただけます。ご視聴につきましては、お客様ご自身のアカウントにてログインをお願いいたします。
+        </p>
+        <p class="lang-en rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          Streaming services are available. Please log in with your own account for viewing.
+        </p>
+        <p class="lang-zh rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          可使用各類影音串流服務。欲觀看節目，請使用您個人的帳號進行登入。
+        </p>
+        <p class="lang-ko rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          각 스트리밍 서비스를 이용하실 수 있습니다. 시청 시 고객님의 개인 계정으로 로그인해 주시기 바랍니다.
+        </p>
+
+        <ul class="appliance-list">
+          <li><strong>音量:</strong> Volume / 音量 / 음량</li>
+          <li><strong>チャンネル:</strong> Channel / 頻道 / 채널</li>
+          <li><strong>入力切換:</strong> Input / 輸入切換 / 입력 전환</li>
+          <li><strong>決定:</strong> OK / Select / 確定 / 결정</li>
+        </ul>
+
+        <!-- 第一張：客廳，隨語言切換 -->
+        <p style="text-align: center; font-weight: bold; margin-bottom: 4px;">
+          <span class="lang-ja">リビング</span>
+          <span class="lang-en">Living Room</span>
+          <span class="lang-zh">客廳</span>
+          <span class="lang-ko">거실</span>
+        </p>
+        <img src="tv.jpg" alt="TV Remote" class="guide-img">
+
+        <!-- 第二張：浴室，隨語言切換 -->
+        <p style="text-align: center; font-weight: bold; margin-bottom: 4px;">
+          <span class="lang-ja">浴室</span>
+          <span class="lang-en">Bathroom</span>
+          <span class="lang-zh">浴室</span>
+          <span class="lang-ko">욕실</span>
+        </p>
+        <img src="tv2.jpg" alt="TV Remote" class="guide-img">
+      </div>
+    </div>
+
+    <!-- 8. 周辺情報 -->
+    <div id="tab8" class="tab-content">
+      <div class="section-title lang-ja">8. 宿泊施設周辺情報</div>
+      <div class="section-title lang-en">8. Nearby Facilities</div>
+      <div class="section-title lang-zh">8. 周邊景點資訊</div>
+      <div class="section-title lang-ko">8. 숙소주변 정보</div>
+
+      <div class="info-card">
+        <span class="rule-title lang-ja">🗺️ 周辺ガイドマップ</span>
+        <span class="rule-title lang-en">🗺️ Nearby Guide Map</span>
+        <span class="rule-title lang-zh">🗺️ 周邊導覽地圖</span>
+        <span class="rule-title lang-ko">🗺️ 주변 가이드 맵</span>
+
+        <p class="lang-ja rule-desc">近隣のコンビニ、スーパー、おすすめスポットなどの詳細情報は、下記ボタンよりご覧ください。</p>
+        <p class="lang-en rule-desc">Please click the button below to open our online guide map for nearby stores and spots.</p>
+        <p class="lang-zh rule-desc">周邊便利商店、超市及推薦景點等詳細資訊，請點擊下方按鈕前往查看。</p>
+        <p class="lang-ko rule-desc">주변 편의점, 마트, 추천 장소 등 상세 정보는 아래 버튼을 클릭하여 확인해 주세요.</p>
+
+        <a href="https://newoinc.github.io/guide/?title=MALU FUTTSU TAKEOKA&address=千葉県富津市竹岡208-47" target="_blank" class="btn btn-map">
+          <span class="lang-ja">🗺️ 周辺ガイドマップを開く</span>
+          <span class="lang-en">🗺️ Open Nearby Guide Map</span>
+          <span class="lang-zh">🗺️ 開啟周邊地圖</span>
+          <span class="lang-ko">🗺️ 주변 가이드 맵 열기</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 9. 当館について -->
+    <div id="tab9" class="tab-content">
+      <div class="section-title lang-ja">9. 当館について</div>
+      <div class="section-title lang-en">9. About Us</div>
+      <div class="section-title lang-zh">9. 關於我們</div>
+      <div class="section-title lang-ko">9. 숙소 소개</div>
+
+      <div class="info-card">
+        <p class="lang-ja" style="margin-top:0; font-weight: bold;">ご宿泊ありがとうございます！</p>
+        <p class="lang-en" style="margin-top:0; font-weight: bold;">Thank you for staying with us!</p>
+        <p class="lang-zh" style="margin-top:0; font-weight: bold;">非常感謝您的入住！</p>
+        <p class="lang-ko" style="margin-top:0; font-weight: bold;">숙박해 주셔서 감사합니다!</p>
+
+        <p class="lang-ja" style="font-size: 13px; color: #475569; margin-bottom: 12px;">弊社ニューオ株式会社では、民泊や時間貸しのレンタルスペースを運営しております。</p>
+        <p class="lang-en" style="font-size: 13px; color: #475569; margin-bottom: 12px;">NEWO Inc. operates vacation rentals and rental spaces.</p>
+        <p class="lang-zh" style="font-size: 13px; color: #475569; margin-bottom: 12px;">NEWO 株式會社營運各類民宿與出租空間。</p>
+        <p class="lang-ko" style="font-size: 13px; color: #475569; margin-bottom: 12px;">주식회사 NEWO는 민박 및 렌탈 공간을 운영하고 있습니다.</p>
+
+        <a href="https://x.com/newo_inc" target="_blank" class="btn btn-x">
+          <span>X (Twitter) @newo_inc</span>
+        </a>
+
+        <a href="https://www.instagram.com/yukatsu_official_?igsh=cWQwNmczaTJzcmJt" target="_blank" class="btn btn-ig" style="margin-top: 8px;">
+          <span>Instagram @yukatsu_official_</span>
+        </a>
+
+        <a href="https://newo.co.jp/rental-space/" target="_blank" class="btn" style="margin-top: 8px;">
+          <span class="lang-ja">HPはこちら</span>
+          <span class="lang-en">Official Website</span>
+          <span class="lang-zh">官方網站</span>
+          <span class="lang-ko">공식 홈페이지</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchMainGuide(guideId, btnElement) {
+    document.querySelectorAll('.guide-section').forEach(sec => sec.classList.remove('active'));
+    document.querySelectorAll('.main-btn').forEach(btn => btn.classList.remove('active'));
+
+    const targetGuide = document.getElementById(guideId);
+    if (targetGuide) targetGuide.classList.add('active');
+    if (btnElement) btnElement.classList.add('active');
+  }
+
+  function openTab(tabId, btnElement) {
+    // 點擊 Room Guide 分頁時，自動切換到 Room Guide
+    const roomGuide = document.getElementById('room-guide');
+    const accessGuide = document.getElementById('access-guide');
+
+    if (roomGuide && !roomGuide.classList.contains('active')) {
+      if (accessGuide) accessGuide.classList.remove('active');
+      roomGuide.classList.add('active');
+
+      document.querySelectorAll('.main-btn').forEach(btn => {
+        if (btn.getAttribute('onclick')?.includes('room-guide')) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // 切換九宮格分頁
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.menu-grid .menu-btn').forEach(btn => btn.classList.remove('active'));
+
+    const targetTab = document.getElementById(tabId);
+    if (targetTab) targetTab.classList.add('active');
+    if (btnElement) btnElement.classList.add('active');
+  }
+
+  function openAppliance(appId, btnElement) {
+    document.querySelectorAll('.appliance-detail').forEach(item => item.classList.remove('active'));
+    document.querySelectorAll('.sub-menu-btn').forEach(btn => btn.classList.remove('active'));
+
+    const targetApp = document.getElementById(appId);
+    if (targetApp) targetApp.classList.add('active');
+    if (btnElement) btnElement.classList.add('active');
+  }
+
+  // 多國語言切換，預設日文
+  let currentLang = 'ja';
+
+  function setLang(langCode, btnElement) {
+    currentLang = langCode;
+
+    document.querySelectorAll('.lang-btn-item').forEach(btn => btn.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+
+    ['ja', 'en', 'zh', 'ko'].forEach(lang => {
+      document.querySelectorAll('.lang-' + lang).forEach(el => {
+        el.style.display = (lang === langCode) ? 'inline-block' : 'none';
+      });
+    });
+  }
+
+  function copyWifi() {
+    const pass = document.getElementById('wifi-pass').innerText;
+
+    navigator.clipboard.writeText(pass).then(() => {
+      const msgs = {
+        ja: 'パスワードをコピーしました！',
+        en: 'Password Copied!',
+        zh: '已複製密碼！',
+        ko: '비밀번호가 복사되었습니다!'
+      };
+
+      alert(msgs[currentLang]);
+    }).catch(err => {
+      console.error('Copy failed', err);
+    });
+  }
+</script>
+
+</body>
+</html>
