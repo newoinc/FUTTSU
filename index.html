@@ -71,6 +71,27 @@
     .appliance-list { padding-left: 0; list-style: none; margin: 0 0 10px 0; font-size: 13px; color: #475569; }
     .appliance-list li { padding: 5px 0; border-bottom: 1px dashed #f1f5f9; }
 
+    /* 響應式 YouTube 影片容器 (16:9) */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-top: 10px;
+      background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* 所有照片放大並統一等比例顯示 */
     .guide-img {
       max-width: 300px;
@@ -331,13 +352,87 @@
     <!-- 2. ルール -->
     <div id="tab2" class="tab-content">
       <div class="section-title lang-ja">2. ルール</div>
-      <div class="section-title lang-en">2. House Rules & Toilet Guidelines</div>
-      <div class="section-title lang-zh">2. 住宿規定與廁所須知</div>
-      <div class="section-title lang-ko">2. 이용규칙 및 화장실 안내</div>
+      <div class="section-title lang-en">2. House Rules & Guidelines</div>
+      <div class="section-title lang-zh">2. 住宿規定與設施須知</div>
+      <div class="section-title lang-ko">2. 이용규칙 및 시설 안내</div>
 
       <div class="info-card">
         <div style="font-size: 15px; font-weight: bold; color: var(--primary); margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
           🏠 ハウスルール / House Rules
+        </div>
+
+        <!-- 新增 1：富津プール案内 -->
+        <span class="rule-title">🏊 プールのご利用について / Pool Guidelines</span>
+        <div class="lang-ja rule-desc" style="background: #eff6ff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bfdbfe;">
+          <p style="margin: 0 0 8px 0;">当ヴィラのプールは、季節や気温に応じてご利用方法が異なります。</p>
+          <div style="margin-bottom: 6px;">
+            <strong>・温水プールとしてのご利用（5月〜6月、9月〜10月）：</strong><br>
+            上記の期間は、温水プールとしてお楽しみいただけます。<br>
+            <span style="color: #dc2626; font-weight: bold;">※なお、気温が14℃を下回る場合は、凍結のおそれがあるため、温水でのご利用を休止させていただきます。</span>
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・通常のプールとしてのご利用：</strong><br>
+            上記以外の期間は、温水ではございませんが、通常のプールとしてご利用いただけます。
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・冬季のご利用：</strong><br>
+            冬季は、サウナとともにお楽しみいただく水風呂としてご利用ください。
+          </div>
+          <p style="margin: 6px 0 0 0; font-size: 12px; color: #1e40af;">季節ごとに異なるプールの楽しみ方を、どうぞごゆっくりとお楽しみください。</p>
+        </div>
+
+        <div class="lang-en rule-desc" style="background: #eff6ff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bfdbfe;">
+          <p style="margin: 0 0 8px 0;">Usage of our villa's pool varies depending on the season and air temperature.</p>
+          <div style="margin-bottom: 6px;">
+            <strong>・Heated Pool (May–June & September–October):</strong><br>
+            During these periods, you can enjoy the pool heated.<br>
+            <span style="color: #dc2626; font-weight: bold;">* Please note: If the temperature drops below 14°C (57°F), heating will be suspended to prevent freezing.</span>
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・Regular Pool (Unheated):</strong><br>
+            Outside of the periods above, the pool is unheated and available as a regular swimming pool.
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・Winter Season:</strong><br>
+            In winter, please enjoy the pool as a cold plunge bath alongside the sauna.
+          </div>
+          <p style="margin: 6px 0 0 0; font-size: 12px; color: #1e40af;">We hope you enjoy the different ways to experience the pool throughout the seasons.</p>
+        </div>
+
+        <div class="lang-zh rule-desc" style="background: #eff6ff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bfdbfe;">
+          <p style="margin: 0 0 8px 0;">本別墅的泳池將依季節與氣溫提供不同的使用方式：</p>
+          <div style="margin-bottom: 6px;">
+            <strong>・溫水泳池期間（5月～6月、9月～10月）：</strong><br>
+            上述期間可作為溫水泳池盡情享用。<br>
+            <span style="color: #dc2626; font-weight: bold;">※ 若氣溫低於 14℃，為避免設備結凍，將暫停提供溫水加熱服務。</span>
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・一般常溫泳池期間：</strong><br>
+            除上述期間外，泳池無加熱功能，可作為一般常溫泳池使用。
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・冬季使用方式：</strong><br>
+            冬季期間，請搭配桑拿（三溫暖）作為冷水池使用。
+          </div>
+          <p style="margin: 6px 0 0 0; font-size: 12px; color: #1e40af;">敬請悠閒體驗四季不同的泳池樂趣。</p>
+        </div>
+
+        <div class="lang-ko rule-desc" style="background: #eff6ff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bfdbfe;">
+          <p style="margin: 0 0 8px 0;">당 빌라의 수영장은 계절과 기온에 따라 이용 방법이 다릅니다.</p>
+          <div style="margin-bottom: 6px;">
+            <strong>・온수 수영장 이용 (5월~6월, 9월~10월):</strong><br>
+            위 기간에는 온수 수영장으로 즐기실 수 있습니다.<br>
+            <span style="color: #dc2626; font-weight: bold;">※ 단, 기온이 14℃ 미만으로 내려갈 경우 동파 우려로 인해 온수 가동이 중단됩니다.</span>
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・일반 수영장 이용:</strong><br>
+            위 기간 이외에는 온수가 제공되지 않으며 일반 수영장으로 이용하실 수 있습니다.
+          </div>
+          <div style="margin-bottom: 6px;">
+            <strong>・동절기 이용:</strong><br>
+            겨울철에는 사우나와 함께 즐기시는 냉수탕(수風呂)으로 이용해 주세요.
+          </div>
+          <p style="margin: 6px 0 0 0; font-size: 12px; color: #1e40af;">계절마다 다른 수영장의 매력을 여유롭게 즐겨보시기 바랍니다.</p>
         </div>
 
         <span class="rule-title-danger">🐾 NO PETS IN THE POOL / ペットのプール利用禁止</span>
@@ -415,6 +510,45 @@
         <p class="lang-en rule-desc">If you request left-behind items to be mailed to you at a later date, shipping costs will be charged to you.</p>
         <p class="lang-zh rule-desc">遺留物品如需於日後寄還，郵資需由住客自行負擔。</p>
         <p class="lang-ko rule-desc">두고 가신 물건을 추후 발송해 드릴 경우 배송비는 고객님 부담입니다.</p>
+      </div>
+
+      <!-- 新增 3：タオルのご利用について -->
+      <div class="info-card">
+        <div style="font-size: 15px; font-weight: bold; color: var(--primary); margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
+          🛁 タオルのご利用について / Towel Usage
+        </div>
+
+        <div class="lang-ja rule-desc">
+          <p style="margin: 0 0 8px 0;">ご用意しておりますタオルはすべて自由にお使いいただいて問題ございません。なお、用途に応じて以下の通り使い分けていただけますと幸いです。</p>
+          <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: 4px;"><strong>⬛ 黒いタオル：</strong> サウナ用</div>
+            <div><strong>⬜ 白いタオル：</strong> お風呂用</div>
+          </div>
+        </div>
+
+        <div class="lang-en rule-desc">
+          <p style="margin: 0 0 8px 0;">Please feel free to use all provided towels. We kindly ask that you use them according to their intended purpose as follows:</p>
+          <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: 4px;"><strong>⬛ Black Towels:</strong> For Sauna</div>
+            <div><strong>⬜ White Towels:</strong> For Bath / Shower</div>
+          </div>
+        </div>
+
+        <div class="lang-zh rule-desc">
+          <p style="margin: 0 0 8px 0;">房內準備的所有毛巾皆可自由使用。此外，懇請您依照以下用途區分使用：</p>
+          <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: 4px;"><strong>⬛ 黑色毛巾：</strong> 桑拿（三溫暖）專用</div>
+            <div><strong>⬜ 白色毛巾：</strong> 浴室洗澡專用</div>
+          </div>
+        </div>
+
+        <div class="lang-ko rule-desc">
+          <p style="margin: 0 0 8px 0;">준비된 모든 수건은 자유롭게 사용하셔도 됩니다. 다만, 용도에 따라 아래와 같이 구분하여 사용해 주시면 감사하겠습니다.</p>
+          <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: 4px;"><strong>⬛ 검은색 수건:</strong> 사우나용</div>
+            <div><strong>⬜ 흰색 수건:</strong> 욕실(목욕)용</div>
+          </div>
+        </div>
       </div>
 
       <!-- トイレの使用方法 -->
@@ -540,12 +674,12 @@
       <div class="section-title lang-zh">7. 家電設備說明</div>
       <div class="section-title lang-ko">7. 가전제품 사용법</div>
 
-      <p class="lang-ja" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">ご覧になりたい家電を選択してください：</p>
-      <p class="lang-en" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Please select the appliance you want to view:</p>
-      <p class="lang-zh" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">請選擇欲查看的家電設備：</p>
-      <p class="lang-ko" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">확인할 가전제품을 선택해 주세요:</p>
+      <p class="lang-ja" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">ご覧になりたい家電・設備を選択してください：</p>
+      <p class="lang-en" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Please select the appliance or equipment you want to view:</p>
+      <p class="lang-zh" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">請選擇欲查看的家電或設備：</p>
+      <p class="lang-ko" style="font-size: 13px; color: #64748b; margin-bottom: 12px;">확인할 가전제품 및 설비를 선택해 주세요:</p>
 
-      <!-- 家電子選單 -->
+      <!-- 家電子選單（2x3 六宮格） -->
       <div class="sub-menu-grid">
         <div class="sub-menu-btn active" onclick="openAppliance('app-ac', this)">
           <span class="lang-ja">❄️ エアコンリモコン</span>
@@ -581,6 +715,14 @@
           <span class="lang-zh">📺 電視遙控器</span>
           <span class="lang-ko">📺 TV 리모컨</span>
         </div>
+
+        <!-- 新增 2：BBQ 教學影片按鈕 -->
+        <div class="sub-menu-btn" onclick="openAppliance('app-bbq', this)">
+          <span class="lang-ja">🍖 BBQの使い方</span>
+          <span class="lang-en">🍖 BBQ Grill</span>
+          <span class="lang-zh">🍖 BBQ 烤爐教學</span>
+          <span class="lang-ko">🍖 BBQ 사용법</span>
+        </div>
       </div>
 
       <!-- 冷氣遙控器 -->
@@ -601,7 +743,6 @@
           <li><strong>風向:</strong> Air Direction / Swing / 風向調整 / 풍향</li>
         </ul>
 
-        <!-- 第一張：リビング・2階寝室 -->
         <p style="text-align: center; font-weight: bold; margin-bottom: 4px;">
           <span class="lang-ja">リビング・2階寝室</span>
           <span class="lang-en">Living Room & 2F Bedroom</span>
@@ -610,7 +751,6 @@
         </p>
         <img src="ac.jpg" alt="AC Remote" class="guide-img">
 
-        <!-- 第二張：2階寝室 -->
         <p style="text-align: center; font-weight: bold; margin-bottom: 4px;">
           <span class="lang-ja">2階寝室</span>
           <span class="lang-en">2F Bedroom</span>
@@ -700,7 +840,6 @@
           <li><strong>決定:</strong> OK / Select / 確定 / 결정</li>
         </ul>
 
-        <!-- 第一張：客廳，隨語言切換 -->
         <p style="text-align: center; font-weight: bold; margin-bottom: 4px;">
           <span class="lang-ja">リビング</span>
           <span class="lang-en">Living Room</span>
@@ -709,7 +848,6 @@
         </p>
         <img src="tv.jpg" alt="TV Remote" class="guide-img">
 
-        <!-- 第二張：浴室，隨語言切換 -->
         <p style="text-align: center; font-weight: bold; margin-bottom: 4px;">
           <span class="lang-ja">浴室</span>
           <span class="lang-en">Bathroom</span>
@@ -717,6 +855,41 @@
           <span class="lang-ko">욕실</span>
         </p>
         <img src="tv2.jpg" alt="TV Remote" class="guide-img">
+      </div>
+
+      <!-- 新增 2：BBQ 教學影片內容區塊 -->
+      <div id="app-bbq" class="info-card appliance-detail">
+        <div class="appliance-header">
+          <div class="appliance-title-main">🍖 BBQの使い方</div>
+          <div class="appliance-title-sub">How to Use the BBQ Grill / BBQ 烤爐使用教學 / BBQ 사용법</div>
+        </div>
+
+        <p class="lang-ja rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          BBQグリルの詳しい使い方は、以下の動画をご覧ください。<br>
+          <span style="color:#dc2626; font-weight:bold;">※BBQのご利用は 19:00 までとなっております。</span>
+        </p>
+        <p class="lang-en rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          Please watch the video below for instructions on how to use the BBQ grill.<br>
+          <span style="color:#dc2626; font-weight:bold;">* BBQ is available until 7:00 PM (19:00).</span>
+        </p>
+        <p class="lang-zh rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          BBQ 烤爐的詳細操作方式，請觀看下方教學影片。<br>
+          <span style="color:#dc2626; font-weight:bold;">※ BBQ 開放使用至 19:00 為止。</span>
+        </p>
+        <p class="lang-ko rule-desc" style="background:#f1f5f9; padding:8px 12px; border-radius:6px; border-left:3px solid var(--accent); margin-bottom:12px;">
+          BBQ 그릴의 자세한 사용 방법은 아래 영상을 확인해 주세요.<br>
+          <span style="color:#dc2626; font-weight:bold;">※ BBQ 이용 시간은 19:00 까지입니다.</span>
+        </p>
+
+        <!-- 請將下方 YOUR_YOUTUBE_VIDEO_ID 替換為實際的 YouTube 影片 ID -->
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID"
+            title="BBQ Guide Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </div>
 
@@ -795,7 +968,6 @@
   }
 
   function openTab(tabId, btnElement) {
-    // 點擊 Room Guide 分頁時，自動切換到 Room Guide
     const roomGuide = document.getElementById('room-guide');
     const accessGuide = document.getElementById('access-guide');
 
@@ -812,7 +984,6 @@
       });
     }
 
-    // 切換九宮格分頁
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.menu-grid .menu-btn').forEach(btn => btn.classList.remove('active'));
 
